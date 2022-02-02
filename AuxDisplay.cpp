@@ -42,16 +42,47 @@ bool AuxDisplay::initialize() {
 
 int AuxDisplay::show() {
             
-    int res = hidlcd_set_cursor(handle, 0, 0);
+//    int res = hidlcd_set_cursor(handle, 0, 0);
     
 //    std::string cmd = "sensors -u | grep --no-messages -A 3 coretemp-isa | " 
 //                      "grep temp1_input | awk '{print $2}' | awk '{printf(\"%d\\n\",$1 + 0.5);}'";
-    std::string cmd = "date \"+%d-%m-%y%T\"";
-    std::string msg = this->exec_cmd(cmd.c_str());
+//    std::string cmd = "date \"+%d-%m-%y%T\"";
+//    std::string msg = exec_cmd(cmd.c_str());
     
-    // std:: string msg = "Hello from daemon";
+    if(display != NULL) {
+        int count = config_setting_length(display);
+        int i;
+        
+        for(i = 0; i < count; ++i) {
+            config_setting_t *line = config_setting_get_elem(display, i);
+            int type, posx, posy, cls;
+            const char* output;
+            
+            config_setting_lookup_string(line, "output", &output);
+            config_setting_lookup_int(line, "type", &type);
+            config_setting_lookup_int(line, "posx", &posx);
+            config_setting_lookup_int(line, "posy", &posy);
+            config_setting_lookup_int(line, "cls", &cls);
+            
+            if(posx >= 0 && posy >= 0) {
+                hidlcd_set_cursor(handle, posy, posx);
+            }
+            
+            switch(type) {
+                case 0:
+                    hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(output));
+                    break;
+                case 1:
+                    std::string msg = exec_cmd(output);
+                    hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(msg.c_str()));
+                    break;
+                    
+            }
+        }
+        
+    }
     
-    return hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(msg.c_str()));
+    return 0;
         
 }
 
@@ -59,6 +90,12 @@ int AuxDisplay::load_config() {
     if(!config_read_file(&cfg, CONFIG_FILE)) {
         return(CONFIG_LOAD_FAILURE);
     }
+    
+    config_lookup_int(&cfg, "vendorid", &vendorid);
+    config_lookup_int(&cfg, "productid", &productid);
+    config_lookup_int(&cfg, "refresh", &refresh);
+    
+    display = config_lookup(&cfg, "display");
     
     return(CONFIG_LOAD_SUCCESS);
 }

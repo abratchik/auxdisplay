@@ -104,10 +104,10 @@ int main(void) {
    AuxDisplay auxdisplay;
    syslog(LOG_NOTICE, "Initializing driver for %s", AUXDISPLAY.c_str());
    
-//   if (auxdisplay.initialize() < 0) {
-//        syslog(LOG_ERR, "Could not initialize %s", AUXDISPLAY.c_str());
-//   }
-//   else {       
+   if (auxdisplay.load_config() != CONFIG_LOAD_SUCCESS) {
+        syslog(LOG_ERR, "Could not initialize %s", AUXDISPLAY.c_str());
+   }
+  
     syslog(LOG_NOTICE, "Starting daemon loop for %s", AUXDISPLAY.c_str());
     while(1)
     {

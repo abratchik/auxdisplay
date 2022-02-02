@@ -32,7 +32,7 @@
 #include <hidapi/hidapi.h>
 #include <libconfig.h>
 
-#define CONFIG_FILE "auxdisplay.conf"
+#define CONFIG_FILE "/etc/auxdisplay.conf"
 #define CONFIG_LOAD_SUCCESS     0
 #define CONFIG_LOAD_FAILURE     1
 
@@ -115,10 +115,12 @@ private:
     
     config_t cfg;
     
-    unsigned short vendorid = DEFAULT_PID;
-    unsigned short productid = DEFAULT_VID;
+    config_setting_t *display;
     
-    unsigned int refresh = DEFAULT_REFRESH; // Daemon-specific intialization should go here
+    int vendorid = DEFAULT_PID;
+    int productid = DEFAULT_VID;
+    
+    int refresh = DEFAULT_REFRESH; // Daemon-specific intialization should go here
     
     std::string exec_cmd(const std::string& cmd_string) {
         const char *cmd = cmd_string.c_str();
