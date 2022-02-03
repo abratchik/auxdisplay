@@ -2,7 +2,7 @@
 <configurationDescriptor version="100">
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1" platformSpecific="true">
+    <conf name="Debug" type="1">
       <toolsSet>
         <developmentServer>abratchik@10.211.55.7:22</developmentServer>
         <platform>2</platform>

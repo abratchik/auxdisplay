@@ -31,10 +31,9 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1" platformSpecific="true">
+    <conf name="Debug" type="1">
       <toolsSet>
         <compilerSet>default</compilerSet>
-        <platform>2</platform>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -42,6 +41,18 @@
         <linkerTool>
           <commandLine>-lhidlcd -ldl -lconfig</commandLine>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="/Users/abratchik/NetBeansProjects/hidlcd"
+                        CT="2"
+                        CN="Linux-Debug"
+                        AC="true"
+                        BL="false"
+                        WD="/Users/abratchik/NetBeansProjects/hidlcd"
+                        BC="${MAKE}  -f Makefile CONF=Linux-Debug"
+                        CC="${MAKE}  -f Makefile CONF=Linux-Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhidlcd.${CND_DLIB_EXT}">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <item path="AuxDisplay.cpp" ex="false" tool="1" flavor2="0">
       </item>

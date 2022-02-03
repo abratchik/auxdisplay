@@ -28,8 +28,8 @@
 
 bool AuxDisplay::initialize() {
     
-    // TODO: make VID/PID configurable
-    handle = hidlcd_open(vendorid, productid, NULL);
+    if(handle == NULL)
+        handle = hidlcd_open(vendorid, productid, NULL);
     
     if(handle == NULL) 
         return false;
