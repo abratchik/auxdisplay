@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <hidapi/hidapi.h>
 #include <libconfig.h>
+#include <unistd.h>
 
 #define CONFIG_FILE "/etc/auxdisplay.conf"
 #define CONFIG_LOAD_SUCCESS     0
@@ -38,7 +39,10 @@
 
 #define DEFAULT_VID     0x2341
 #define DEFAULT_PID     0x8036
-#define DEFAULT_REFRESH 5
+#define DEFAULT_REFRESH 5000
+#define DEFAULT_DELAY   100     //delay in miliseconds
+
+#define HID_AUXD_CLEAR              0x80 // Clear Display command
 
 typedef struct
 {
@@ -58,7 +62,7 @@ extern "C" {
     typedef int (*hidlcd_set_cursor_t)(hid_device *dev, u_int8_t row, u_int8_t col);
     typedef HIDDisplayParams* (*hidlcd_get_display_params_t)(hid_device *dev);
     typedef int (*hidlcd_print_t)(hid_device *dev, HIDDisplayParams *display_params, const unsigned char *string);
-    typedef int (*hidlcd_send_command)(hid_device *dev, u_int8_t command);
+    typedef int (*hidlcd_send_command_t)(hid_device *dev, u_int8_t command);
 }
 
 class AuxDisplay {
@@ -72,6 +76,7 @@ public:
         hidlcd_get_display_params = (hidlcd_get_display_params_t)dlsym(lib, "hidlcd_get_display_params");
         hidlcd_set_cursor = (hidlcd_set_cursor_t)dlsym(lib, "hidlcd_set_cursor");
         hidlcd_print = (hidlcd_print_t)dlsym(lib, "hidlcd_print");
+        hidlcd_send_command = (hidlcd_send_command_t)(lib, "hidlcd_send_command");
         
         config_init(&cfg);
         
@@ -109,6 +114,7 @@ private:
     hidlcd_get_display_params_t hidlcd_get_display_params;
     hidlcd_set_cursor_t hidlcd_set_cursor ;
     hidlcd_print_t hidlcd_print;
+    hidlcd_send_command_t hidlcd_send_command;
     
     hid_device *handle = NULL;
     HIDDisplayParams* dp = NULL;
@@ -121,6 +127,7 @@ private:
     int productid = DEFAULT_VID;
     
     int refresh = DEFAULT_REFRESH; // Daemon-specific intialization should go here
+    int cmddelay = DEFAULT_DELAY;
     
     std::string exec_cmd(const std::string& cmd_string) {
         const char *cmd = cmd_string.c_str();

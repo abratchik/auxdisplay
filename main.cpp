@@ -21,7 +21,6 @@
 #include <string>
 #include <sys/stat.h>
 #include <syslog.h>
-#include <unistd.h>
 #include <vector>
 
 #include "AuxDisplay.h"
@@ -122,7 +121,7 @@ int main(void) {
             syslog(LOG_ERR, "Could not initialize %s", AUXDISPLAY.c_str());
        }
 
-       sleep(auxdisplay.get_refresh());
+       usleep(auxdisplay.get_refresh() * 1000);
     }
 
 

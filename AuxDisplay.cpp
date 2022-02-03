@@ -55,14 +55,13 @@ int AuxDisplay::show() {
         
         for(i = 0; i < count; ++i) {
             config_setting_t *line = config_setting_get_elem(display, i);
-            int type, posx, posy, cls;
+            int type, posx, posy;
             const char* output;
             
             config_setting_lookup_string(line, "output", &output);
             config_setting_lookup_int(line, "type", &type);
             config_setting_lookup_int(line, "posx", &posx);
-            config_setting_lookup_int(line, "posy", &posy);
-            config_setting_lookup_int(line, "cls", &cls);
+            config_setting_lookup_int(line, "posy", &posy);    
             
             if(posx >= 0 && posy >= 0) {
                 hidlcd_set_cursor(handle, posy, posx);
@@ -78,6 +77,7 @@ int AuxDisplay::show() {
                     break;
                     
             }
+            usleep(cmddelay * 1000);
         }
         
     }
@@ -94,6 +94,7 @@ int AuxDisplay::load_config() {
     config_lookup_int(&cfg, "vendorid", &vendorid);
     config_lookup_int(&cfg, "productid", &productid);
     config_lookup_int(&cfg, "refresh", &refresh);
+    config_lookup_int(&cfg, "cmddelay", &cmddelay);
     
     display = config_lookup(&cfg, "display");
     
