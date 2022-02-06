@@ -1,3 +1,36 @@
+# Auxiliary LCD Display Service
+
+The goal of this project is to create a configurable cross-platform system service, which can print 
+the textual information on the auxiliary HID-compliant LCD display connected through USB port. 
+
+## Supported Operating Systems
+* Linux
+* Mac OSX (TBD)
+* Windows (TBD)
+
+## Tested on Operating Systems
+* Ubuntu 18.04 LTS
+
+## Installation
+
+### Installation on Linux
+TBD
+
+### Build from source
+#### Build on Linux
+
+
+## Usage
+Configuration of the auxdisplay service is simple and requires editing of the cofiguration file. Location of 
+the file varies depending on the host operation system:
+
+* Linux: /etc/auxdisplay.conf
+* Mac OSX: TBD
+* Windows: TBD
+
+Example of the configuration file is below:
+
+'''
 # Auxiliary Display Configuration file
 
 # VID and PID of the Aux Display
@@ -53,5 +86,21 @@ display =
       posx = -1;
       posy = -1; }
 ); 
+'''
+
+There is no know limitation on shell commands, which can be used with this service but it is recommended to use
+single-line output commands because cr/lf symbols are not interpreted properly.  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
