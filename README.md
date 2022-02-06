@@ -30,7 +30,7 @@ the file varies depending on the host operation system:
 
 Example of the configuration file is below:
 
-'''
+```
 # Auxiliary Display Configuration file
 
 # VID and PID of the Aux Display
@@ -86,7 +86,7 @@ display =
       posx = -1;
       posy = -1; }
 ); 
-'''
+```
 
 There is no know limitation on shell commands, which can be used with this service but it is recommended to use
 single-line output commands because cr/lf symbols are not interpreted properly.  
