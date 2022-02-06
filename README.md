@@ -11,13 +11,36 @@ the textual information on the auxiliary HID-compliant LCD display connected thr
 ## Tested on Operating Systems
 * Ubuntu 18.04 LTS
 
+## Architecture of the solution
+The overall architecture of the solution is represented on the image below:
+
+![Alt text](https://github.com/abratchik/HIDAuxiliaryDisplay/blob/master/img/HIDAuxiliaryDisplayArchitecture.png)
+
+The solution is consisted of 2 parts - the HID-compliant LCD display and the host. The host part 
+contains the auxdisplay service (this project), the HIDLCD driver and the HIDAPI library.
+
+
 ## Installation
+Currently, only Linux hosts are supported so the installation procedure below describes the steps to be performed 
+on Linux.
 
-### Installation on Linux
-TBD
+Before executing the steps below, please ensure the developer tools are installed on your host. If your operating 
+system is Ubuntu, you can run `sudo apt update` & `sudo apt install build-essential` in the bash terminal. 
 
-### Build from source
-#### Build on Linux
+1. Install [HIDAPI library](https://github.com/libusb/hidapi). Just follow the instructions in HIDAPI Readme.
+2. Install [HIDLCD library](https://github.com/abratchik/hidlcd). Follow the instructions in HIDLCD Readme.
+3. Clone this repository to a folder on your host machine.
+4. Navigate to the folder and execute `make` and `sudo make install`
+
+In case there was no errors during the make, the auxdisplay service can be enabled in your system using following commands:
+
+```
+sudo systemctl enable auxdisplay.service
+sudo systemctl start auxdisplay.service
+```
+
+If everything is installed and configured properly, you will see the date/time and CPU temp on the screen. You can
+modify the information displayed on the screen by editing the auxdisplay.conf and re-starting the auxdisplay service.
 
 
 ## Usage
