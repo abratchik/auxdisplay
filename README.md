@@ -27,10 +27,11 @@ on Linux.
 Before executing the steps below, please ensure the developer tools are installed on your host. If your operating 
 system is Ubuntu, you can run `sudo apt update` & `sudo apt install build-essential` in the bash terminal. 
 
-1. Install [HIDAPI library](https://github.com/libusb/hidapi). Just follow the instructions in HIDAPI Readme.
-2. Install [HIDLCD library](https://github.com/abratchik/hidlcd). Follow the instructions in HIDLCD Readme.
-3. Clone this repository to a folder on your host machine.
-4. Navigate to the folder and execute `make` and `sudo make install`
+1. Install libconfig library by posting `sudo apt-get install -y libconfig-dev` command in the host shell.
+2. Install [HIDAPI library](https://github.com/libusb/hidapi). Just follow the instructions in HIDAPI Readme.
+3. Install [HIDLCD library](https://github.com/abratchik/hidlcd). Follow the instructions in HIDLCD Readme.
+4. Clone this repository to a folder on your host machine.
+5. Navigate to the folder and execute `make` and `sudo make install`
 
 In case there was no errors during the make, the auxdisplay service can be enabled in your system using following commands:
 
