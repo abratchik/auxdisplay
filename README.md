@@ -91,7 +91,9 @@ display =
 There is no know limitation on shell commands, which can be used with this service but it is recommended to use
 single-line output commands because cr/lf symbols are not interpreted properly.  
 
+## License
 
+[GPL v.3](http://www.gnu.org/copyleft/gpl.html)
 
 
 

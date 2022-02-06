@@ -122,12 +122,7 @@ help: .help-post
 .help-post: .help-impl
 # Add your post 'help' code here...
 
-install:
-	@echo ${CND_PLATFORM_${CONF}}
-	@echo ${LD_LIBRARY_PATH}
-	@echo ${CND_ARTIFACT_PATH_${CONF}}
-	@echo ${BINDIR}
-	
+install:	
 	@install -v -m 557 ${CND_ARTIFACT_PATH_${CONF}} ${BINDIR}
 	@install -v -m 644 "auxdisplay.conf" ${ETCDIR}
 
