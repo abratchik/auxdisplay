@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
-    <logicalFolder name="f2"
-                   displayName="Configuration Files"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f2" displayName="Configuration Files" projectFiles="true">
       <itemPath>auxdisplay.conf</itemPath>
+      <itemPath>auxdisplay.service</itemPath>
     </logicalFolder>
-    <logicalFolder name="f1"
-                   displayName="Doc Files"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f1" displayName="Doc Files" projectFiles="true">
       <itemPath>LICENSE</itemPath>
       <itemPath>README.md</itemPath>
       <itemPath>VERSION</itemPath>
@@ -55,20 +50,8 @@
       </toolsSet>
       <compileType>
         <linkerTool>
-          <commandLine>-lhidlcd -ldl -lconfig</commandLine>
+          <commandLine>-lhidlcd -ldl -lconfig -lhidapi-hidraw</commandLine>
         </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="/Users/abratchik/NetBeansProjects/hidlcd"
-                        CT="2"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="/Users/abratchik/NetBeansProjects/hidlcd"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhidlcd.${CND_DLIB_EXT}">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
       <item path="AuxDisplay.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -81,6 +64,8 @@
       <item path="VERSION" ex="false" tool="3" flavor2="0">
       </item>
       <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -116,6 +101,8 @@
       <item path="VERSION" ex="false" tool="3" flavor2="0">
       </item>
       <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -1,0 +1,11 @@
+# AuxDisplay service
+
+[Unit]
+Description=Auxiliary LCD Display Service
+
+[Service]
+ExecStart=/usr/bin/auxdisplay
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

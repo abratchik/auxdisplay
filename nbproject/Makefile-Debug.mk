@@ -61,7 +61,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auxdisplay: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auxdisplay ${OBJECTFILES} ${LDLIBSOPTIONS} -lhidlcd -ldl -lconfig
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auxdisplay ${OBJECTFILES} ${LDLIBSOPTIONS} -lhidlcd -ldl -lconfig -lhidapi-hidraw
 
 ${OBJECTDIR}/AuxDisplay.o: AuxDisplay.cpp
 	${MKDIR} -p ${OBJECTDIR}

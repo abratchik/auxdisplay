@@ -52,6 +52,7 @@ int AuxDisplay::show() {
     if(display != NULL) {
         int count = config_setting_length(display);
         int i;
+        std::string msg;
         
         for(i = 0; i < count; ++i) {
             config_setting_t *line = config_setting_get_elem(display, i);
@@ -68,12 +69,15 @@ int AuxDisplay::show() {
             }
             
             switch(type) {
-                case 0:
+                case 0 :
                     hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(output));
                     break;
-                case 1:
-                    std::string msg = exec_cmd(output);
+                case 1 :
+                    msg = exec_cmd(output);
                     hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(msg.c_str()));
+                    break;
+                    
+                default :
                     break;
                     
             }

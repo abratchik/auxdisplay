@@ -51,6 +51,7 @@ CCADMIN=CCadmin
 
 BINDIR=/usr/bin
 ETCDIR=/etc
+SRVCDIR=/etc/systemd/system
 
 
 # build
@@ -125,6 +126,7 @@ help: .help-post
 install:	
 	@install -v -m 557 ${CND_ARTIFACT_PATH_${CONF}} ${BINDIR}
 	@install -v -m 644 "auxdisplay.conf" ${ETCDIR}
+	@install -v -m 644 "auxdisplay.service" ${SRVCDIR}
 
 
 

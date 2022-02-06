@@ -30,6 +30,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include <hidapi/hidapi.h>
+#include <hidlcd/hidlcd.h>
 #include <libconfig.h>
 #include <unistd.h>
 
@@ -42,45 +43,17 @@
 #define DEFAULT_REFRESH 5000
 #define DEFAULT_DELAY   100     //delay in miliseconds
 
-#define HID_AUXD_CLEAR              0x80 // Clear Display command
-
-typedef struct
-{
-  u_int8_t rows;     // 0x35
-  u_int8_t cols;     // 0x36
-  u_int8_t chrw;     // 0x3d char width 
-  u_int8_t chrh;     // 0x3e char height
-  u_int8_t flags;    // 0x21|0x22|0x29|5 unused
-} HIDDisplayParams;
-
-extern "C" {
-
-    typedef hid_device *  (*hidlcd_open_t)(unsigned short vendor_id, unsigned short product_id, const wchar_t *serial_number);
-    typedef int (*hidlcd_init_t)(void);
-    typedef void (*hidlcd_close_t)(hid_device *dev);
-    typedef int (*hidlcd_exit_t)(void);
-    typedef int (*hidlcd_set_cursor_t)(hid_device *dev, u_int8_t row, u_int8_t col);
-    typedef HIDDisplayParams* (*hidlcd_get_display_params_t)(hid_device *dev);
-    typedef int (*hidlcd_print_t)(hid_device *dev, HIDDisplayParams *display_params, const unsigned char *string);
-    typedef int (*hidlcd_send_command_t)(hid_device *dev, u_int8_t command);
-}
-
 class AuxDisplay {
 public:
     AuxDisplay() {
-        lib = dlopen("libhidlcd.so", RTLD_LAZY);
-        hidlcd_open = (hidlcd_open_t)dlsym(lib, "hidlcd_open");
-        hidlcd_init = (hidlcd_init_t)dlsym(lib, "hidlcd_init");
-        hidlcd_close = (hidlcd_close_t)dlsym(lib, "hidlcd_close");
-        hidlcd_exit = (hidlcd_exit_t)dlsym(lib, "hidlcd_exit");
-        hidlcd_get_display_params = (hidlcd_get_display_params_t)dlsym(lib, "hidlcd_get_display_params");
-        hidlcd_set_cursor = (hidlcd_set_cursor_t)dlsym(lib, "hidlcd_set_cursor");
-        hidlcd_print = (hidlcd_print_t)dlsym(lib, "hidlcd_print");
-        hidlcd_send_command = (hidlcd_send_command_t)(lib, "hidlcd_send_command");
         
         config_init(&cfg);
         
         hidlcd_init();
+        
+        hidlcd_send_command(handle, HID_AUXD_CLEAR);
+        
+        usleep(cmddelay * 1000);
     };
     
     AuxDisplay(const AuxDisplay& orig);
@@ -91,7 +64,7 @@ public:
         delete dp;
         hidlcd_exit();
         config_destroy(&cfg);
-        dlclose(lib);
+
     };
     
     bool initialize();
@@ -103,18 +76,9 @@ public:
     unsigned int get_refresh() {return refresh;};
     
 private:
-    void* lib;
+
     unsigned short vendor_id;
     unsigned short product_id;
-    
-    hidlcd_open_t hidlcd_open;
-    hidlcd_init_t hidlcd_init;
-    hidlcd_close_t hidlcd_close;
-    hidlcd_exit_t hidlcd_exit;
-    hidlcd_get_display_params_t hidlcd_get_display_params;
-    hidlcd_set_cursor_t hidlcd_set_cursor ;
-    hidlcd_print_t hidlcd_print;
-    hidlcd_send_command_t hidlcd_send_command;
     
     hid_device *handle = NULL;
     HIDDisplayParams* dp = NULL;
