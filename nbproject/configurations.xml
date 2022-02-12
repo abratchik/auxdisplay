@@ -42,11 +42,11 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Linux_Debug" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
-        <rebuildPropChanged>false</rebuildPropChanged>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <linkerTool>
@@ -105,6 +105,38 @@
       <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Mac_Debug" type="1" platformSpecific="true">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>4</platform>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lhidlcd -ldl -lconfig -lhidapi</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="AuxDisplay.cpp" ex="false" tool="1" flavor2="8">
+      </item>
+      <item path="AuxDisplay.h" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="LICENSE" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="README.md" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="VERSION" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="8">
       </item>
     </conf>
   </confs>

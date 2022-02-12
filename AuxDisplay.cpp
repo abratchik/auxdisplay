@@ -22,7 +22,7 @@
  * Created on January 9, 2022, 6:14 PM
  */
 
-#include <string>
+#include <string.h>
 #include "AuxDisplay.h"
 
 
@@ -70,11 +70,11 @@ int AuxDisplay::show() {
             
             switch(type) {
                 case 0 :
-                    hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(output));
+                    hidlcd_print(handle, dp, output);
                     break;
                 case 1 :
                     msg = exec_cmd(output);
-                    hidlcd_print(handle, dp, reinterpret_cast<const unsigned char*>(msg.c_str()));
+                    hidlcd_print(handle, dp, msg.c_str());
                     break;
                     
                 default :

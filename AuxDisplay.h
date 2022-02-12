@@ -46,7 +46,7 @@
 class AuxDisplay {
 public:
     AuxDisplay() {
-        
+    
         config_init(&cfg);
         
         hidlcd_init();

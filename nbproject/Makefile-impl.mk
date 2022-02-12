@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=auxdisplay
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Linux_Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Linux_Debug Release Mac_Debug 
 
 
 # build
