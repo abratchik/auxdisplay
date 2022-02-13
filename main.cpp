@@ -22,6 +22,7 @@
 #include <sys/stat.h>
 #include <syslog.h>
 #include <vector>
+#include <signal.h>
 
 #include "AuxDisplay.h"
 
@@ -130,7 +131,6 @@ int main(void) {
    }
 
    // Register signal handlers
-   signal(SIGSTOP, signal_handler);
    signal(SIGTERM, signal_handler);
    
     syslog(LOG_NOTICE, "Starting daemon loop for %s", AUXDISPLAY.c_str());

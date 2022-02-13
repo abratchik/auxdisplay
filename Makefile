@@ -53,7 +53,7 @@ BINDIR=/usr/local/bin
 ETCDIR=/etc
 
 UNAME := $(shell uname)
-ifeq ($(UNAME), Linix)
+ifeq ($(UNAME), Linux)
 override CONF=Linux_Debug
 SRVCDIR=/etc/systemd/system
 endif
@@ -163,7 +163,7 @@ help: .help-post
 	@echo ""
 
 install:
-ifeq ($(UNAME), Linix)
+ifeq ($(UNAME), Linux)
 	@echo "Linux install"	
 	@install -v -m 557 ${CND_ARTIFACT_PATH_${CONF}} ${BINDIR}
 	@install -v -m 644 "linux/auxdisplay.conf" ${ETCDIR}
