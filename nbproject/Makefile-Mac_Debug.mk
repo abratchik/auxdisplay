@@ -66,17 +66,17 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auxdisplay: ${OBJECTFILES}
 ${OBJECTDIR}/AuxDisplay.o: AuxDisplay.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AuxDisplay.o AuxDisplay.cpp
+	$(COMPILE.cc) -g -DNOFORK -DNOWORKDIR -DNOCLOSEIO -DNOSESSION -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AuxDisplay.o AuxDisplay.cpp
 
 ${OBJECTDIR}/AuxDisplay.h.gch: AuxDisplay.h
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o "$@" AuxDisplay.h
+	$(COMPILE.cc) -g -DNOFORK -DNOWORKDIR -DNOCLOSEIO -DNOSESSION -std=c++11 -MMD -MP -MF "$@.d" -o "$@" AuxDisplay.h
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -DNOFORK -DNOWORKDIR -DNOCLOSEIO -DNOSESSION -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

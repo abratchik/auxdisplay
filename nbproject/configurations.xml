@@ -2,8 +2,14 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="f2" displayName="Configuration Files" projectFiles="true">
-      <itemPath>auxdisplay.conf</itemPath>
-      <itemPath>auxdisplay.service</itemPath>
+      <logicalFolder name="f2" displayName="linux" projectFiles="true">
+        <itemPath>linux/auxdisplay.conf</itemPath>
+        <itemPath>linux/auxdisplay.service</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="mac" projectFiles="true">
+        <itemPath>mac/auxdisplay.conf</itemPath>
+        <itemPath>mac/com.abratchik.auxdisplay.plist</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="f1" displayName="Doc Files" projectFiles="true">
       <itemPath>LICENSE</itemPath>
@@ -63,9 +69,13 @@
       </item>
       <item path="VERSION" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.service" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/com.abratchik.auxdisplay.plist" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -100,9 +110,13 @@
       </item>
       <item path="VERSION" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.service" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/com.abratchik.auxdisplay.plist" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -117,6 +131,12 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
+          <preprocessorList>
+            <Elem>NOCLOSEIO</Elem>
+            <Elem>NOFORK</Elem>
+            <Elem>NOSESSION</Elem>
+            <Elem>NOWORKDIR</Elem>
+          </preprocessorList>
         </ccTool>
         <linkerTool>
           <commandLine>-lhidlcd -ldl -lconfig -lhidapi</commandLine>
@@ -132,9 +152,13 @@
       </item>
       <item path="VERSION" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="auxdisplay.service" ex="false" tool="3" flavor2="0">
+      <item path="linux/auxdisplay.service" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/auxdisplay.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="mac/com.abratchik.auxdisplay.plist" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="8">
       </item>

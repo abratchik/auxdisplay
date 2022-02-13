@@ -29,11 +29,24 @@ using namespace std;
 
 const string AUXDISPLAY = "auxdisplay-daemon";
 
+bool keepalive = true;
+
 void do_heartbeat(AuxDisplay* auxdisplay)
 {
     
     auxdisplay->show();
     
+}
+
+void signal_handler(int sig) {
+    
+    switch(sig) {
+        case SIGTERM:
+            keepalive = false;
+            break;
+        default:
+            break;
+    }
 }
 
 /*
@@ -44,6 +57,7 @@ int main(void) {
    // Define variables
    pid_t pid, sid;
 
+#ifndef NOFORK
    // Fork the current process
    pid = fork();
    // The parent process continues with a process ID greater than 0
@@ -63,12 +77,14 @@ int main(void) {
 
    // Since the child process is a daemon, the umask needs to be set so files and logs can be written
    umask(0);
-
+#endif
+   
    // Open system logs for the child process
    openlog(AUXDISPLAY.c_str(), LOG_NOWAIT | LOG_PID, LOG_USER);
    
    syslog(LOG_NOTICE, "Successfully started %s", AUXDISPLAY.c_str());
 
+#ifndef NOSESSION
    // Generate a session ID for the child process
    sid = setsid();
    // Ensure a valid SID for the child process
@@ -81,7 +97,9 @@ int main(void) {
       // or it will be orphaned
       exit(EXIT_FAILURE);
    }
-
+#endif
+   
+#ifndef NOWORKDIR
    // Change the current working directory to a directory guaranteed to exist
    if((chdir("/tmp")) < 0)
    {
@@ -92,11 +110,15 @@ int main(void) {
       // the daemon has not been hijacked
       exit(EXIT_FAILURE);
    }
+#endif
 
    // A daemon cannot use the terminal, so close standard file descriptors for security reasons
    close(STDIN_FILENO);
+   
+#ifndef NOCLOSEIO   
    close(STDOUT_FILENO);
    close(STDERR_FILENO);
+#endif
 
    // Enter daemon loop
 
@@ -106,9 +128,13 @@ int main(void) {
    if (auxdisplay.load_config() != CONFIG_LOAD_SUCCESS) {
         syslog(LOG_ERR, "Could not initialize %s", AUXDISPLAY.c_str());
    }
-  
+
+   // Register signal handlers
+   signal(SIGSTOP, signal_handler);
+   signal(SIGTERM, signal_handler);
+   
     syslog(LOG_NOTICE, "Starting daemon loop for %s", AUXDISPLAY.c_str());
-    while(1)
+    while(keepalive)
     {
        if (auxdisplay.initialize()) {
 

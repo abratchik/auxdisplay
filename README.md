@@ -5,7 +5,7 @@ the textual information on the auxiliary HID-compliant LCD display connected thr
 
 ## Supported Operating Systems
 * Linux
-* Mac OSX (TBD)
+* Mac OSX 
 * Windows (TBD)
 
 ## Tested on Operating Systems
@@ -14,16 +14,15 @@ the textual information on the auxiliary HID-compliant LCD display connected thr
 ## Architecture of the solution
 The overall architecture of the solution is represented on the image below:
 
-![Alt text](https://github.com/abratchik/HIDAuxiliaryDisplay/blob/master/img/HIDAuxiliaryDisplayArchitecture.png)
+<img src="https://raw.githubusercontent.com/abratchik/HIDAuxiliaryDisplay/master/img/HIDAuxiliaryDisplayArchitecture.png" 
+     alt="drawing" style="width:800px;"/>
 
 The solution is consisted of 2 parts - the HID-compliant LCD display and the host. The host part 
 contains the auxdisplay service (this project), the HIDLCD driver and the HIDAPI library.
 
 
 ## Installation
-Currently, only Linux hosts are supported so the installation procedure below describes the steps to be performed 
-on Linux.
-
+### Linux
 Before executing the steps below, please ensure the developer tools are installed on your host. If your operating 
 system is Ubuntu, you can run `sudo apt update` & `sudo apt install build-essential` in the bash terminal. 
 
@@ -43,16 +42,29 @@ sudo systemctl start auxdisplay.service
 If everything is installed and configured properly, you will see the date/time and CPU temp on the screen. You can
 modify the information displayed on the screen by editing the auxdisplay.conf and re-starting the auxdisplay service.
 
+### Mac OSX
+Please ensure Xcode Command Line Tools installed on your Mac. This can be done by running the command 
+`xcode-select --install` in the terminal.
+
+1. Install libconfig library from the source. The instruction how to do it is [here](https://github.com/hyperrealm/libconfig/blob/master/INSTALL)
+Steps 2-5 are the same as in Linux.
+
+In case there was no errors during the make, the auxdisplay service can be enabled in your system using following commands:
+
+```
+sudo launchctl load -w /Library/LaunchDaemons/com.abratchik.auxdisplay.plist
+```
 
 ## Usage
 Configuration of the auxdisplay service is simple and requires editing of the cofiguration file. Location of 
 the file varies depending on the host operation system:
 
 * Linux: /etc/auxdisplay.conf
-* Mac OSX: TBD
+* Mac OSX: /etc/auxdisplay.conf
 * Windows: TBD
 
-Example of the configuration file is below:
+Example of the configuration file for Linux is below. Please note that configuration files may vary depending on the 
+host system. 
 
 ```
 # Auxiliary Display Configuration file

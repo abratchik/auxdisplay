@@ -49,10 +49,19 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
-BINDIR=/usr/bin
+BINDIR=/usr/local/bin
 ETCDIR=/etc
-SRVCDIR=/etc/systemd/system
 
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linix)
+override CONF=Linux_Debug
+SRVCDIR=/etc/systemd/system
+endif
+
+ifeq ($(UNAME), Darwin)
+override CONF=Mac_Debug
+SRVCDIR=/Library/LaunchDaemons
+endif
 
 # build
 build: .build-post
@@ -120,14 +129,52 @@ help: .help-post
 .help-pre:
 # Add your pre 'help' code here...
 
-.help-post: .help-impl
-# Add your post 'help' code here...
+.help-post: 
+	@echo "Platform": ${UNAME}
+	@echo "Configuration": ${CND_PLATFORM_${CONF}}
+	@echo ""
+	@echo "This makefile supports the following configurations:"
+	@echo "    ${ALLCONFS}"
+	@echo ""
+	@echo "and the following targets:"
+	@echo "    build  (default target)"
+	@echo "    clean"
+	@echo "    clobber"
+	@echo "    all"
+	@echo "    help"
+	@echo ""
+	@echo "Makefile Usage:"
+	@echo "    make [CONF=<CONFIGURATION>] [SUB=no] build"
+	@echo "    make [CONF=<CONFIGURATION>] [SUB=no] clean"
+	@echo "    make [CONF=<CONFIGURATION>] [SUB=no] install"
+	@echo "    make [SUB=no] clobber"
+	@echo "    make [SUB=no] all"
+	@echo "    make help"
+	@echo ""
+	@echo "Target 'build' will build a specific configuration and, unless 'SUB=no',"
+	@echo "    also build subprojects."
+	@echo "Target 'clean' will clean a specific configuration and, unless 'SUB=no',"
+	@echo "    also clean subprojects."
+	@echo "Target 'clobber' will remove all built files from all configurations and,"
+	@echo "    unless 'SUB=no', also from subprojects."
+	@echo "Target 'all' will will build all configurations and, unless 'SUB=no',"
+	@echo "    also build subprojects."
+	@echo "Target 'help' prints this message."
+	@echo ""
 
-install:	
+install:
+ifeq ($(UNAME), Linix)
+	@echo "Linux install"	
 	@install -v -m 557 ${CND_ARTIFACT_PATH_${CONF}} ${BINDIR}
-	@install -v -m 644 "auxdisplay.conf" ${ETCDIR}
-	@install -v -m 644 "auxdisplay.service" ${SRVCDIR}
-
+	@install -v -m 644 "linux/auxdisplay.conf" ${ETCDIR}
+	@install -v -m 644 "linux/auxdisplay.service" ${SRVCDIR}
+endif
+ifeq ($(UNAME), Darwin)	
+	@echo "Mac OSX install"
+	@install -v -m 557 ${CND_ARTIFACT_PATH_${CONF}} ${BINDIR}
+	@install -v -m 644 "mac/auxdisplay.conf" ${ETCDIR}
+	@install -v -o root -m 644 "mac/com.abratchik.auxdisplay.plist" ${SRVCDIR}
+endif
 
 
 # include project implementation makefile
